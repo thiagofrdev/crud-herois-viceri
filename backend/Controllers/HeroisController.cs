@@ -23,5 +23,18 @@ namespace backend.Controllers
             var herois = await _context.Herois.ToArrayAsync();
             return Ok(herois);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Herois>>> GetHeroiPorID(int id)
+        {
+            var heroi = await _context.Herois.FindAsync(id);
+
+            if (heroi == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(heroi);
+        }
     }
 }
