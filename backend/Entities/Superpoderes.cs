@@ -1,4 +1,4 @@
-﻿namespace Superheroes.Api;
+﻿namespace Superheroes.Api.Entities;
 
 public class Superpoderes
 {
