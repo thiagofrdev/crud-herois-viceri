@@ -36,5 +36,14 @@ namespace backend.Controllers
 
             return Ok(heroi);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<Herois>>> CriarNovoHeroi(Herois heroi)
+        {
+            _context.Herois.Add(heroi);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetHeroiPorID", new { id = heroi.Id }, heroi);
+        }
     }
 }
