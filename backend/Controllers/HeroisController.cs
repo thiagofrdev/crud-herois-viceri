@@ -155,5 +155,22 @@ namespace backend.Controllers
 
             return Ok(heroiRespostaDto);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> ApagarHeroiPorId(int id)
+        {
+            var heroiBd = await _context.Herois.FindAsync(id);
+
+            if (heroiBd == null)
+            {
+                return NotFound();
+            }
+
+            _context.Herois.Remove(heroiBd);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
