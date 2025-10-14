@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Superheroes.Api.Data;
@@ -20,30 +21,90 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Herois>>> GetHerois()
         {
-            var herois = await _context.Herois.ToArrayAsync();
-            return Ok(herois);
+            var heroisDto = await _context.Herois.Include(h => h.Superpoderes).Select(h => new HeroiDTOSaida
+            {
+                Id = h.Id,
+                Nome = h.Nome,
+                NomeHeroi = h.NomeHeroi,
+                Superpoderes = h.Superpoderes.Select(sp => new SuperpoderDTO
+                {
+                    Id = sp.Id,
+                    Superpoder = sp.Superpoder
+                }).ToList()
+            }).ToListAsync();
+
+            if (!heroisDto.Any())
+            {
+                return NotFound("Nenhum herói foi encontrado.");
+            }
+
+            return Ok(heroisDto);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Herois>>> GetHeroiPorID(int id)
         {
-            var heroi = await _context.Herois.FindAsync(id);
+            var heroi = await _context.Herois.Include(h => h.Superpoderes).FirstOrDefaultAsync(h => h.Id == id);
 
             if (heroi == null)
             {
                 return NotFound();
             }
 
-            return Ok(heroi);
+            var heroiRespostaDto = new HeroiDTOSaida
+            {
+                Id = heroi.Id,
+                Nome = heroi.Nome,
+                NomeHeroi = heroi.NomeHeroi,
+                Superpoderes = heroi.Superpoderes.Select(sp => new SuperpoderDTO
+                {
+                    Id = sp.Id,
+                    Superpoder = sp.Superpoder
+                }).ToList()
+            };
+
+            return Ok(heroiRespostaDto);
         }
 
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<Herois>>> CriarNovoHeroi(Herois heroi)
+        public async Task<ActionResult<Herois>> Criarheroi(HeroiDTOCriacao heroiDto)
         {
+            var heroi = new Herois
+            { // Mapeando as propriedades do DTO para o tipo "Herois"
+                Nome = heroiDto.Nome,
+                NomeHeroi = heroiDto.NomeHeroi,
+                DataNascimento = heroiDto.DataNascimento,
+                Altura = heroiDto.Altura,
+                Peso = heroiDto.Peso,
+                Superpoderes = new List<Superpoderes>()
+            };
+
+            //Lógica para lidar com os IDs de superpoderes vindos do DTO
+            foreach (var superpoderId in heroiDto.SuperpoderesIds)
+            {
+                var superpoderesDoBanco = await _context.Superpoderes.FindAsync(superpoderId);
+                if (superpoderesDoBanco != null)
+                {
+                    heroi.Superpoderes.Add(superpoderesDoBanco);
+                }
+            }
+
             _context.Herois.Add(heroi);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetHeroiPorID", new { id = heroi.Id }, heroi);
+            var heroiRespostaDto = new HeroiDTOSaida
+            {
+                Id = heroi.Id,
+                Nome = heroi.Nome,
+                NomeHeroi = heroi.NomeHeroi,
+                Superpoderes = heroi.Superpoderes.Select(p => new SuperpoderDTO
+                {
+                    Id = p.Id,
+                    Superpoder = p.Superpoder
+                }).ToList()
+            };
+
+            return CreatedAtAction("GetHeroiPorID", new { id = heroiRespostaDto.Id }, heroiRespostaDto);
         }
     }
 }
