@@ -1,11 +1,8 @@
-<h2>Lista de Heróis</h2>
-
-<ul>
-  <li *ngFor="let hero of heroes">
-    {{ hero.nomeHeroi }}
-  </li>
-</ul>
+<div>
+    <app-hero-card *ngFor="let hero of heroes" [hero]="hero">
+    </app-hero-card>
+</div>
 
 <p *ngIf="heroes.length === 0">
-  Nenhum herói cadastrado ainda.
+    Nenhum herói cadastrado ainda.
 </p>

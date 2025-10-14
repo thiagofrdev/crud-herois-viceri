@@ -1,1 +1,18 @@
-<p>hero-card works!</p>
+<div>
+    <h3>{{ hero.nomeHeroi }}</h3>
+    <p><strong>Nome real:</strong> {{ hero.nome }}</p>
+
+    <div>
+        <strong>Superpoderes:</strong>
+        <ul>
+            <li *ngFor="let poder of hero.superpoderes">
+                {{ poder.superpoder }}
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <button>Editar</button>
+        <button>Excluir</button>
+    </div>
+</div>

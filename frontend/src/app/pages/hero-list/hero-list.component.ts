@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroService } from '../../services/hero.service';
 import { Hero } from '../../models/hero.model';
+import { HeroCardComponent } from "../../components/hero-card/hero-card.component";
 
 @Component({
   selector: 'app-hero-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeroCardComponent],
   templateUrl: './hero-list.component.html',
   styleUrl: './hero-list.component.scss'
 })

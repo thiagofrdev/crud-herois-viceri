@@ -1,4 +1,4 @@
 export interface Superpoder{
     id: number;
-    name: string;
+    superpoder: string;
 }
