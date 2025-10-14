@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeroService } from '../../services/hero.service';
 import { Hero } from '../../models/hero.model';
 import { HeroCardComponent } from "../../components/hero-card/hero-card.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero-list',
@@ -14,11 +15,23 @@ import { HeroCardComponent } from "../../components/hero-card/hero-card.componen
 export class HeroListComponent implements OnInit{
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private router: Router) { }
 
   ngOnInit(): void {
     this.heroService.getHeroes().subscribe(result => {
       this.heroes = result;
     });
   }
+
+  handleDelete(heroId: number): void {
+    if (confirm('Tem certeza que deseja excluir este herói?')) {
+      this.heroService.deleteHero(heroId).subscribe(() => {
+        this.heroes = this.heroes.filter(hero => hero.id !== heroId);
+      });
+    }
+  }
+
+  handleEdit(heroId: number): void {
+      this.router.navigate(['/heroes/edit', heroId]);
+    }
 }

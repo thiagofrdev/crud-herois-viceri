@@ -1,5 +1,9 @@
 <div>
-    <app-hero-card *ngFor="let hero of heroes" [hero]="hero">
+    <app-hero-card 
+        *ngFor="let hero of heroes" 
+        [hero]="hero" 
+        (delete)="handleDelete($event)"
+        (edit)="handleEdit($event)">
     </app-hero-card>
 </div>
 
