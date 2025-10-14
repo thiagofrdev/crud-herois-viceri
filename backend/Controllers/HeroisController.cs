@@ -106,5 +106,54 @@ namespace backend.Controllers
 
             return CreatedAtAction("GetHeroiPorID", new { id = heroiRespostaDto.Id }, heroiRespostaDto);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarHeroi(int id, HeroiDTOCriacao heroiDto)
+        {
+            var heroiBd = await _context.Herois.Include(h => h.Superpoderes).FirstOrDefaultAsync(h => h.Id == id);
+
+            if (heroiBd == null)
+            {
+                return NotFound();
+            }
+
+            var nomeEmUso = await _context.Herois.AnyAsync(h => h.NomeHeroi == heroiDto.NomeHeroi && h.Id != id);
+            if (nomeEmUso)
+            {
+                return Conflict("Já existe outro herói com este nome de herói.");
+            }
+
+            heroiBd.Nome = heroiDto.Nome;
+            heroiBd.NomeHeroi = heroiDto.NomeHeroi;
+            heroiBd.DataNascimento = heroiDto.DataNascimento;
+            heroiBd.Altura = heroiDto.Altura;
+            heroiBd.Peso = heroiDto.Peso;
+
+            heroiBd.Superpoderes.Clear();
+            foreach (var poderId in heroiDto.SuperpoderesIds)
+            {
+                var superpoderBd = await _context.Superpoderes.FindAsync(poderId);
+                if (superpoderBd != null)
+                {
+                    heroiBd.Superpoderes.Add(superpoderBd);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            var heroiRespostaDto = new HeroiDTOSaida
+            {
+                Id = heroiBd.Id,
+                Nome = heroiBd.Nome,
+                NomeHeroi = heroiBd.NomeHeroi,
+                Superpoderes = heroiBd.Superpoderes.Select(sp => new SuperpoderDTO
+                {
+                    Id = sp.Id,
+                    Superpoder = sp.Superpoder
+                }).ToList()
+            };
+
+            return Ok(heroiRespostaDto);
+        }
     }
 }
