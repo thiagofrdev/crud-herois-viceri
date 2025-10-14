@@ -575,3 +575,6 @@ obj/
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,aspnetcore,visualstudiocode,angular
+backend/superheroes.db
+backend/superheroes.db-shm
+backend/superheroes.db-wal
