@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Hero } from '../../models/hero.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { HeroService } from '../../services/hero.service';
+import { Superpoder } from '../../models/superpoder.model';
 
 @Component({
   selector: 'app-hero-form-ui',
@@ -15,8 +17,13 @@ export class HeroFormUiComponent {
   @Output() save = new EventEmitter<any>();
 
   heroForm: FormGroup;
+  allSuperpowers: Superpoder[] = [];
 
-  constructor(private fb: FormBuilder) {
+  get superpowersFormArray() {
+    return this.heroForm.controls['superpoderes'] as FormArray;
+  }
+
+  constructor(private fb: FormBuilder, private heroService: HeroService) {
     this.heroForm = this.fb.group({
       id: [null],
       nome: ['', Validators.required],
@@ -29,12 +36,62 @@ export class HeroFormUiComponent {
   }
 
   ngOnChanges(): void {
-    if (this.hero) {
-      this.heroForm.patchValue(this.hero);
+    this.heroForm.reset();
+    this.superpowersFormArray.clear();
+    
+    this.allSuperpowers.forEach(() => 
+      this.superpowersFormArray.push(new FormControl(false))
+    );
+
+     if (this.hero) {
+      const heroDataForForm = {
+        ...this.hero,
+        altura: parseFloat(this.hero.altura.toFixed(2)),
+        peso: parseFloat(this.hero.peso.toFixed(2))
+      };
+
+      this.heroForm.patchValue(heroDataForForm);
+      this.checkBoxSuperpowers();
     }
   }
-  
+
   onSubmit(): void {
-    this.save.emit(this.heroForm.value);
+    const formValue = this.heroForm.value;
+
+    const selectedSuperpowerIds = formValue.superpoderes
+      .map((checked: boolean, i: number) => checked ? this.allSuperpowers[i].id : null)
+      .filter((id: number | null) => id !== null);
+
+    const heroDataPayload = {
+      nome: formValue.nome,
+      nomeHeroi: formValue.nomeHeroi,
+      dataNascimento: formValue.dataNascimento,
+      altura: formValue.altura,
+      peso: formValue.peso,
+      superpoderesIds: selectedSuperpowerIds
+    };
+
+    this.save.emit(heroDataPayload);
+  }
+
+  ngOnInit(): void {
+    this.heroService.getSuperpowers().subscribe(sp => {
+      this.allSuperpowers = sp;
+      this.superpowersFormArray.clear();
+      this.allSuperpowers.forEach(() => 
+        this.superpowersFormArray.push(new FormControl(false))
+      );
+      this.checkBoxSuperpowers();
+    });
+  }
+
+  private checkBoxSuperpowers(): void {
+    if (this.hero && this.allSuperpowers.length > 0) {
+      this.allSuperpowers.forEach((power, index) => {
+        if (this.hero?.superpoderes.some(heroPower => heroPower.id === power.id)) {
+          this.superpowersFormArray.at(index).setValue(true);
+        }
+      });
+    }
   }
 }

@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeroFormComponent implements OnInit{
   hero?: Hero;
   isEditMode = false;
+  heroIdForEdit: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class HeroFormComponent implements OnInit{
 
     if (heroId) {
       this.isEditMode = true
+      this.heroIdForEdit = +heroId;
       this.heroService.getHeroByID(+heroId).subscribe(hero => {
         this.hero = hero;
       });
@@ -34,10 +36,14 @@ export class HeroFormComponent implements OnInit{
   }
 
   onSave(heroData: any): void {
-    if (this.isEditMode) {
-      console.log('Atualizando herói:', heroData);
+    if (this.isEditMode && this.heroIdForEdit) {
+      this.heroService.updateHero(this.heroIdForEdit, heroData).subscribe(() => {
+        this.router.navigate(['/heroes']);
+      });
     } else {
-      console.log('Criando novo herói:', heroData);
+      this.heroService.createHero(heroData).subscribe(() => {
+        this.router.navigate(['/heroes']);
+      });
     }
   }
 }

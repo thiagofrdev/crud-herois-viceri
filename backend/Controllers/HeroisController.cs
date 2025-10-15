@@ -26,6 +26,8 @@ namespace backend.Controllers
                 Id = h.Id,
                 Nome = h.Nome,
                 NomeHeroi = h.NomeHeroi,
+                Altura = h.Altura,
+                Peso = h.Peso,
                 Superpoderes = h.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,
@@ -56,6 +58,8 @@ namespace backend.Controllers
                 Id = heroi.Id,
                 Nome = heroi.Nome,
                 NomeHeroi = heroi.NomeHeroi,
+                Altura = heroi.Altura,
+                Peso = heroi.Peso,
                 Superpoderes = heroi.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,
@@ -97,6 +101,8 @@ namespace backend.Controllers
                 Id = heroi.Id,
                 Nome = heroi.Nome,
                 NomeHeroi = heroi.NomeHeroi,
+                Altura = heroi.Altura,
+                Peso = heroi.Peso,
                 Superpoderes = heroi.Superpoderes.Select(p => new SuperpoderDTO
                 {
                     Id = p.Id,
@@ -146,6 +152,8 @@ namespace backend.Controllers
                 Id = heroiBd.Id,
                 Nome = heroiBd.Nome,
                 NomeHeroi = heroiBd.NomeHeroi,
+                Altura = heroiBd.Altura,
+                Peso = heroiBd.Peso,
                 Superpoderes = heroiBd.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,
