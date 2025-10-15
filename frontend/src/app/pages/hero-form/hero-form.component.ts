@@ -36,14 +36,24 @@ export class HeroFormComponent implements OnInit{
   }
 
   onSave(heroData: any): void {
+    const handleSuccess = () => {
+      alert(`Herói ${this.isEditMode ? 'atualizado' : 'criado'} com sucesso!`);
+      this.router.navigate(['/heroes']);
+    };
+
+    const handleError = (err: any) => {
+      if (err.status === 409) {
+        alert('Erro: Já existe um herói com este Nome de Herói.');
+      } else {
+        alert('Ocorreu um erro ao salvar. Verifique se todos os campos estão preenchidos corretamente.');
+      }
+      console.error(err);
+    };
+
     if (this.isEditMode && this.heroIdForEdit) {
-      this.heroService.updateHero(this.heroIdForEdit, heroData).subscribe(() => {
-        this.router.navigate(['/heroes']);
-      });
+      this.heroService.updateHero(this.heroIdForEdit, heroData).subscribe(handleSuccess, handleError);
     } else {
-      this.heroService.createHero(heroData).subscribe(() => {
-        this.router.navigate(['/heroes']);
-      });
+      this.heroService.createHero(heroData).subscribe(handleSuccess, handleError)
     }
   }
 }
