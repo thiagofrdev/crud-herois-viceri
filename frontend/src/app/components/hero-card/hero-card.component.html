@@ -1,18 +1,28 @@
-<div>
-    <h3>{{ hero.nomeHeroi }}</h3>
-    <p><strong>Nome real:</strong> {{ hero.nome }}</p>
-
-    <div>
-        <strong>Superpoderes:</strong>
-        <ul>
-            <li *ngFor="let poder of hero.superpoderes">
-                {{ poder.superpoder }}
-            </li>
-        </ul>
+<div class="hero-card">
+    <div class="card-header">
+        <h3>{{ hero.nomeHeroi }}</h3>
+        <span>ID: {{ hero.id }}</span>
     </div>
 
-    <div>
+    <div class="card-body">
+        <p><strong>Nome Real:</strong> {{ hero.nome }}</p>
+        <div class="details">
+            <span><strong>Altura:</strong> {{ hero.altura }}m</span>
+            <span><strong>Peso:</strong> {{ hero.peso }}kg</span>
+        </div>
+
+        <div class="superpowers">
+            <strong>Poderes:</strong>
+            <ul>
+                <li *ngFor="let poder of hero.superpoderes">
+                    {{ poder.superpoder }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-footer actions">
         <button (click)="onEditClick()">Editar</button>
-        <button (click)="onDeleteClick()">Excluir</button>
+        <button class="danger" (click)="onDeleteClick()">Excluir</button>
     </div>
 </div>

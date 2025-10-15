@@ -1,1 +1,117 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- VARIAVEIS GLOBAIS --- */
+:root {
+  --cor-primaria: #007bff;
+  --cor-primaria-hover: #0056b3;
+  --cor-perigo: #dc3545;
+  --cor-perigo-hover: #a71d2a;
+  --cor-fundo-principal: #121212;
+  --cor-fundo-secundario: #1e1e1e;
+  --cor-borda: #333;
+  --cor-texto-principal: #e0e0e0;
+  --cor-texto-secundario: #a0a0a0;
+  --sombra-card: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* --- CONFIGURAÇÕES BÁSICAS --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--cor-fundo-principal);
+  color: var(--cor-texto-principal);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--cor-primaria);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--cor-primaria-hover);
+}
+
+h1, h2, h3, h4 {
+  margin-bottom: 1rem;
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+
+/* --- ESTILOS GLOBAIS DE BOTÕES --- */
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  background-color: var(--cor-primaria);
+  color: white;
+
+  &:hover {
+    background-color: var(--cor-primaria-hover);
+  }
+
+  &.danger {
+    background-color: var(--cor-perigo);
+    &:hover {
+      background-color: var(--cor-perigo-hover);
+    }
+  }
+}
+
+/* --- ESTILOS GLOBAIS DE FORMULÁRIOS --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--cor-fundo-secundario);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+form label {
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"] {
+  padding: 0.75rem;
+  background-color: var(--cor-fundo-principal);
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+  color: var(--cor-texto-principal);
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+  }
+}
+
+form .checkbox-group div {
+  flex-direction: row;
+  align-items: center;
+}

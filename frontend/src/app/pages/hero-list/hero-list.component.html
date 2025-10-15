@@ -1,12 +1,12 @@
-<div>
-    <app-hero-card 
-        *ngFor="let hero of heroes" 
-        [hero]="hero" 
-        (delete)="handleDelete($event)"
-        (edit)="handleEdit($event)">
-    </app-hero-card>
+<div class="container hero-list-container">
+  <app-hero-card
+    *ngFor="let hero of heroes"
+    [hero]="hero"
+    (delete)="handleDelete($event)"
+    (edit)="handleEdit($event)">
+  </app-hero-card>
 </div>
 
-<p *ngIf="heroes.length === 0">
-    Nenhum herói cadastrado ainda.
-</p>
+<div class="container" *ngIf="heroes.length === 0">
+  <p>Nenhum herói cadastrado ainda.</p>
+</div>

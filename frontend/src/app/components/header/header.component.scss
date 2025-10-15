@@ -1,0 +1,35 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--cor-fundo-secundario);
+  border-bottom: 1px solid var(--cor-borda);
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  a {
+    font-weight: 600;
+  }
+
+  a.button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: var(--cor-primaria);
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--cor-primaria-hover);
+      color: white;
+    }
+  }
+}
