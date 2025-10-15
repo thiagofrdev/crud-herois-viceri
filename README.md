@@ -1,89 +1,95 @@
-# Desafio Trainee Full Stack - Gerenciador de Super-Heróis
+# Desafio Full Stack - Gerenciador de Super-Heróis
 
-Projeto desenvolvido como teste técnico para o processo seletivo de Pessoa Desenvolvedora Full Stack (.NET e Angular) na empresa Viceri Seidor.
+Projeto desenvolvido como solução para o desafio técnico da Viceri Seidor para a vaga de Desenvolvedor Full Stack Trainee. A aplicação consiste em um CRUD (Create, Read, Update, Delete) completo para gerenciar uma base de dados de super-heróis.
 
-O objetivo do desafio é construir uma aplicação web completa para o gerenciamento de super-heróis, incluindo um back-end (API) em .NET e um front-end em Angular.
+![Screenshot da Aplicação](https://imgur.com/gallery/tela-inicial-do-gerenciador-de-super-her-is-VLwFN4Z)
 
+## ✨ Funcionalidades
 
+* **Listagem de Heróis:** Visualização de todos os heróis cadastrados em um layout de cards responsivo.
+* **Criação e Edição:** Formulário único para cadastrar novos heróis ou editar existentes.
+* **Exclusão:** Funcionalidade para remover um herói da base de dados com diálogo de confirmação.
+* **Validação de Regras de Negócio:** A API impede a criação de heróis com o mesmo nome de herói.
 
-### 🚶 STATUS DO PROJETO
-Em Desenvolvimento 🚧
+## 🚀 Tecnologias Utilizadas
 
+Este projeto foi construído utilizando uma stack moderna e robusta, com separação clara entre o frontend e o backend.
 
+**Backend (.NET 8)**
+* **ASP.NET Core:** Para a construção da API RESTful.
+* **Entity Framework Core:** ORM para interação com o banco de dados.
+* **SQLite:** Banco de dados relacional leve e baseado em arquivo.
+* **Padrão de DTOs (Data Transfer Objects):** Para garantir um contrato seguro e estável entre a API e o cliente.
+* **Swagger:** Para documentação e teste interativo dos endpoints da API.
 
-### 🛠️ TECNOLOGIAS UTILIZADAS
-* **Back-end:**
-    * .NET 8 (ou superior)
-    * Entity Framework Core
-    * SQLite
-    * Swagger/OpenAPI
-* **Front-end:**
-    * Angular 17 (ou superior)
-    * TypeScript
+**Frontend (Angular 18)**
+* **Angular Standalone Components:** Arquitetura moderna para componentes mais simples e reutilizáveis.
+* **Reactive Forms:** Para a construção de formulários robustos e escaláveis.
+* **TypeScript:** Para um código mais seguro e manutenível.
+* **SCSS:** Para estilização avançada e organizada.
+* **Arquitetura de Serviços:** Para centralizar a lógica de comunicação com a API.
 
+## ⚙️ Como Executar o Projeto
 
+Siga os passos abaixo para rodar a aplicação em seu ambiente local.
 
-### 🚀 COMO RODAR O PROJETO
+### Pré-requisitos
+* [.NET SDK 8](https://dotnet.microsoft.com/download) ou superior.
+* [Node.js e npm](https://nodejs.org/) (v18 ou superior).
+* [Angular CLI](https://angular.io/cli) instalado globalmente (`npm install -g @angular/cli`).
 
-#### Pré-requisitos:
-* .NET SDK 8.x
-* Node.js e Angular CLI
+### 1. Clonar o Repositório
 
-#### **Back-end (.NET API):**
-#### Clone este repositório
+Primeiro, clone o projeto do GitHub para a sua máquina local.
+
 ```bash
-git clone https://github.com/thiagofrdev/crud-herois-viceri
+# Clone o repositório
+git clone https://github.com/thiagofrdev/crud-herois-viceri.git
+
+# Entre na pasta do projeto
+cd crud-herois-viceri
 ```
 
-#### Acesse a pasta do back-end
+### 2. Backend (API)
+
 ```bash
+# 1. Navegue até a pasta do backend
 cd backend
-```
 
-#### Instale as dependências e crie o banco de dados
+# 2. Restaure as dependências do .NET
+dotnet restore
+
+# 3. Aplique as migrations para criar o banco de dados SQLite
+dotnet ef database update
+
+# 4. Rode a aplicação
+dotnet run
+```
+A API estará disponível em `http://localhost:5169` (ou na porta especificada no seu `launchSettings.json`).
+Você pode acessar a documentação do Swagger em `http://localhost:5169/swagger`.
+
+### 3. Frontend (Angular)
+
 ```bash
-$ dotnet restore
-$ dotnet ef database update
+# 1. Em um novo terminal, navegue até a pasta do frontend
+cd frontend
+
+# 2. Instale as dependências do Node.js
+npm install
+
+# 3. Rode a aplicação de desenvolvimento
+ng serve -o
 ```
+A aplicação Angular será aberta automaticamente no seu navegador em `http://localhost:4200`.
 
-#### Execute a aplicação
-```bash
-$ dotnet run
-```
+## 🏛️ Arquitetura e Decisões Técnicas
 
-#### **Front-end (Angular):**
+* **Separação Backend/Frontend:** O projeto foi estruturado em duas pastas distintas para simular um ambiente de desenvolvimento real, onde as equipes de front e back trabalham de forma independente.
+* **Uso de DTOs:** Foram criados DTOs para a entrada e saída de dados na API. Isso desacopla a camada de dados da camada de apresentação, previne referências circulares na serialização JSON e aumenta a segurança ao não expor as entidades do banco diretamente.
+* **Componentização no Angular:** A interface foi dividida em "Smart Components" (páginas) e "Dumb Components" (componentes de UI reutilizáveis), como o `hero-card` e o `hero-form-ui`, seguindo as melhores práticas do Angular.
+* **Conventional Commits:** O versionamento do código seguiu o padrão de Conventional Commits para manter um histórico de commits limpo e semântico.
 
-#### Acesse a pasta do front-end
-```bash
-$ cd Web
-```
-
-#### Instale as dependências
-```bash
-$ npm install
-```
-
-#### Execute a aplicação
-```bash
-$ ng serve
-```
-
-#### Abra o navegador em 
-```bash
-http://localhost:4200/
-```
-
-### ✨ FUNCIONALIDADES
-* 🚧 Cadastro de um novo super-herói
-* 🚧 Listagem dos super-heróis
-* 🚧 Consulta de um super-herói por Id
-* 🚧 Atualização de informações do super-herói
-* 🚧 Exclusão de um super-herói
-* 🚧 Documentação da API com Swagger
-
-
-
-### 👨‍💻 AUTOR
-**Thiago Ferreira**
-* **GitHub:** [@thiagofrdev](https://github.com/thiagofrdev)
-* **LinkedIn:** [thiagoferreiraribeiro](https://www.linkedin.com/in/thiagoferreiraribeiro/)
+---
+_Projeto desenvolvido por Thiago F. Ribeiro como parte do processo seletivo da Viceri Seidor._
+- GitHub: ![@thiagofrdev](https://github.com/thiagofrdev)
+- LinkedIn: ![thiagoferreiraribeiro](https://www.linkedin.com/in/thiagoferreiraribeiro/)
