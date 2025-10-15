@@ -1,0 +1,43 @@
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="nome">Nome Real:</label>
+        <input id="nome" type="text" formControlName="nome">
+    </div>
+
+    <div>
+        <label for="nomeHeroi">Nome de Herói:</label>
+        <input id="nomeHeroi" type="text" formControlName="nomeHeroi">
+    </div>
+
+    <div>
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input id="dataNascimento" type="date" formControlName="dataNascimento">
+    </div>
+
+    <div>
+        <label for="altura">Altura (m):</label>
+        <input id="altura" type="number" formControlName="altura" step="0.01">
+    </div>
+
+    <div>
+        <label for="peso">Peso (kg):</label>
+        <input id="peso" type="number" formControlName="peso" step="0.01">
+    </div>
+
+    <div>
+        <h4>Superpoderes</h4>
+        <div formArrayName="superpoderes" class="checkbox-group">
+            <div *ngFor="let power of allSuperpowers; let i = index">
+                <input
+                type="checkbox"
+                [id]="'power-' + i"
+                [formControlName]="i">
+                <label [for]="'power-' + i">{{ power.superpoder }}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" [disabled]="heroForm.invalid">Salvar</button>
+    </div>
+</form>

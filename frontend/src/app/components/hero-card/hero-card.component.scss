@@ -1,0 +1,86 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.hero-card {
+  background-color: var(--cor-fundo-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  box-shadow: var(--sombra-card);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* --- Cabeçalho do Card --- */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+
+  h3 {
+    margin: 0;
+    color: var(--cor-primaria);
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: var(--cor-texto-secundario);
+  }
+}
+
+/* --- Corpo do Card --- */
+.card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    color: var(--cor-texto-secundario);
+  }
+
+  .superpowers {
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+
+      li {
+        background-color: var(--cor-fundo-principal);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        border: 1px solid var(--cor-borda);
+      }
+    }
+  }
+}
+
+
+/* --- Rodapé do Card --- */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+  background-color: rgba(0, 0, 0, 0.2);
+}

@@ -26,6 +26,9 @@ namespace backend.Controllers
                 Id = h.Id,
                 Nome = h.Nome,
                 NomeHeroi = h.NomeHeroi,
+                Altura = h.Altura,
+                Peso = h.Peso,
+                DataNascimento = h.DataNascimento,
                 Superpoderes = h.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,
@@ -42,7 +45,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Herois>>> GetHeroiPorID(int id)
+        public async Task<ActionResult<HeroiDTOSaida>> GetHeroiPorID(int id)
         {
             var heroi = await _context.Herois.Include(h => h.Superpoderes).FirstOrDefaultAsync(h => h.Id == id);
 
@@ -56,6 +59,9 @@ namespace backend.Controllers
                 Id = heroi.Id,
                 Nome = heroi.Nome,
                 NomeHeroi = heroi.NomeHeroi,
+                Altura = heroi.Altura,
+                Peso = heroi.Peso,
+                DataNascimento = heroi.DataNascimento,
                 Superpoderes = heroi.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,
@@ -97,6 +103,9 @@ namespace backend.Controllers
                 Id = heroi.Id,
                 Nome = heroi.Nome,
                 NomeHeroi = heroi.NomeHeroi,
+                Altura = heroi.Altura,
+                Peso = heroi.Peso,
+                DataNascimento = heroi.DataNascimento,
                 Superpoderes = heroi.Superpoderes.Select(p => new SuperpoderDTO
                 {
                     Id = p.Id,
@@ -108,7 +117,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizarHeroi(int id, HeroiDTOCriacao heroiDto)
+        public async Task<IActionResult> AtualizarHeroi(int id, [FromBody] HeroiDTOCriacao heroiDto)
         {
             var heroiBd = await _context.Herois.Include(h => h.Superpoderes).FirstOrDefaultAsync(h => h.Id == id);
 
@@ -146,6 +155,9 @@ namespace backend.Controllers
                 Id = heroiBd.Id,
                 Nome = heroiBd.Nome,
                 NomeHeroi = heroiBd.NomeHeroi,
+                Altura = heroiBd.Altura,
+                Peso = heroiBd.Peso,
+                DataNascimento = heroiBd.DataNascimento,
                 Superpoderes = heroiBd.Superpoderes.Select(sp => new SuperpoderDTO
                 {
                     Id = sp.Id,

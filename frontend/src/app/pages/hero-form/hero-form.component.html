@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Editar Herói' : 'Cadastrar Novo Herói' }}</h2>
+
+  <app-hero-form-ui
+    *ngIf="hero || !isEditMode"
+    [hero]="hero"
+    (save)="onSave($event)">
+  </app-hero-form-ui>
+</div>
