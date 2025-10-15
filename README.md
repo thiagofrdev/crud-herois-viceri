@@ -2,7 +2,8 @@
 
 Projeto desenvolvido como solução para o desafio técnico da Viceri Seidor para a vaga de Desenvolvedor Full Stack Trainee. A aplicação consiste em um CRUD (Create, Read, Update, Delete) completo para gerenciar uma base de dados de super-heróis.
 
-![Screenshot da Aplicação](https://imgur.com/gallery/tela-inicial-do-gerenciador-de-super-her-is-VLwFN4Z)
+![Screenshot da Aplicação](img\print_home.png)
+
 
 ## ✨ Funcionalidades
 
