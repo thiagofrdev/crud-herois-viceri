@@ -18,4 +18,8 @@ export class HeroService {
   public deleteHero(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  public getHeroByID(id: number): Observable<Hero> {
+    return this.http.get<Hero>(`${this.apiUrl}/${id}`)
+  }
 }

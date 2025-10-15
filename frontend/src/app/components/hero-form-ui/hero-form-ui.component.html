@@ -1,1 +1,23 @@
-<p>hero-form-ui works!</p>
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="nome">Nome Real:</label>
+    <input id="nome" type="text" formControlName="nome">
+  </div>
+
+  <div>
+    <label for="nomeHeroi">Nome de Herói:</label>
+    <input id="nomeHeroi" type="text" formControlName="nomeHeroi">
+  </div>
+  
+  <div>
+    <label for="altura">Altura:</label>
+    <input id="altura" type="number" formControlName="altura">
+  </div>
+  
+  <div>
+    <label for="peso">Peso:</label>
+    <input id="peso" type="number" formControlName="peso">
+  </div>
+  
+  <button type="submit">Salvar</button>
+</form>

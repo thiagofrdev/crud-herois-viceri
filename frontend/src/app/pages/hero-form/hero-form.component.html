@@ -1,1 +1,5 @@
-<p>hero-form works!</p>
+<app-hero-form-ui
+    *ngIf="hero || !isEditMode"
+    [hero]="hero"
+    (save)="onSave($event)">
+</app-hero-form-ui>
