@@ -35,23 +35,33 @@ export class HeroFormUiComponent {
     });
   }
 
-  ngOnChanges(): void {
-    this.heroForm.reset();
-    this.superpowersFormArray.clear();
+  // ngOnChanges(): void {
+  //   this.heroForm.reset();
+  //   this.superpowersFormArray.clear();
     
-    this.allSuperpowers.forEach(() => 
-      this.superpowersFormArray.push(new FormControl(false))
-    );
+  //   this.allSuperpowers.forEach(() => 
+  //     this.superpowersFormArray.push(new FormControl(false))
+  //   );
 
-     if (this.hero) {
-      const heroDataForForm = {
-        ...this.hero,
-        altura: parseFloat(this.hero.altura.toFixed(2)),
-        peso: parseFloat(this.hero.peso.toFixed(2))
-      };
+  //    if (this.hero) {
+  //     const formattedDate = this.hero.dataNascimento.toString().split('T')[0];
 
-      this.heroForm.patchValue(heroDataForForm);
-      this.checkBoxSuperpowers();
+  //     const heroDataForForm = {
+  //       ...this.hero,
+  //       dataNascimento: formattedDate,
+  //       altura: parseFloat(this.hero.altura.toFixed(2)),
+  //       peso: parseFloat(this.hero.peso.toFixed(2))
+  //     };
+
+  //     this.heroForm.patchValue(heroDataForForm);
+  //     this.checkBoxSuperpowers();
+  //   }
+  // }
+  ngOnChanges(): void {
+    if (this.hero) {
+      this.fillFormWithHeroData();
+    } else {
+      this.heroForm.reset();
     }
   }
 
@@ -93,5 +103,22 @@ export class HeroFormUiComponent {
         }
       });
     }
+  }
+
+  private fillFormWithHeroData(): void {
+    if (!this.hero) return;
+
+    const formattedDate = new Date(this.hero.dataNascimento).toISOString().split('T')[0];
+
+    this.heroForm.patchValue({
+      id: this.hero.id,
+      nome: this.hero.nome,
+      nomeHeroi: this.hero.nomeHeroi,
+      dataNascimento: formattedDate,
+      altura: this.hero.altura,
+      peso: this.hero.peso,
+    });
+
+    this.checkBoxSuperpowers();
   }
 }

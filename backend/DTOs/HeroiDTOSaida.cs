@@ -12,6 +12,7 @@ namespace backend.DTOs
         public string NomeHeroi { get; set; }
         public double Altura { get; set; }
         public double Peso { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public List<SuperpoderDTO> Superpoderes { get; set; }
     }

@@ -6,5 +6,6 @@ export interface Hero{
     nomeHeroi: string;
     altura: number;
     peso: number;
+    dataNascimento: Date;
     superpoderes: Superpoder[]
 }
