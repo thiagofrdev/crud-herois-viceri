@@ -19,7 +19,7 @@ namespace backend.Controllers
         public HeroisController(DataContext context) { _context = context; }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Herois>>> GetHerois()
+        public async Task<ActionResult<IEnumerable<HeroiDTOSaida>>> GetHerois()
         {
             var heroisDto = await _context.Herois.Include(h => h.Superpoderes).Select(h => new HeroiDTOSaida
             {
