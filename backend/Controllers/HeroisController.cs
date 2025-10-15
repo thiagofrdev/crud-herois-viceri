@@ -73,8 +73,15 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Herois>> Criarheroi(HeroiDTOCriacao heroiDto)
+        public async Task<ActionResult<Herois>> CriarHeroi(HeroiDTOCriacao heroiDto)
         {
+            var nomeEmUso = await _context.Herois.AnyAsync(h => h.NomeHeroi.ToLower() == heroiDto.NomeHeroi.ToLower());
+
+            if (nomeEmUso)
+            {
+                return Conflict("Já existe um herói com este nome.");
+            }
+
             var heroi = new Herois
             { // Mapeando as propriedades do DTO para o tipo "Herois"
                 Nome = heroiDto.Nome,
